@@ -1,3 +1,16 @@
+# API Request
+
+**Endpoint:** `POST /evaluate`
+**Content-Type:** `multipart/form-data`
+
+## Parameters
+
+| Parameter | Type | Required | Description | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| `file` | File | Yes | The audio file containing the speech to evaluate (e.g., .wav, .mp3). | - |
+| `text` | String | Yes | The target word or phrase that the audio attempts to speak. | - |
+| `language` | String | No | The language code for evaluation (e.g., `en-us`, `en-gb`). | `en-us` |
+
 # API Response Structure
 
 The `POST /evaluate` endpoint returns a JSON object with the following structure:
