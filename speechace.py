@@ -51,18 +51,26 @@ def format_speechace_response(raw_response):
         word = word_data.get("word")
         quality_score = word_data.get("quality_score")
         
+        # extent is usually [start_time, end_time] in seconds
+        word_extent = word_data.get("extent", [None, None]) # Default to None if missing
+        
         syllable_score_list = word_data.get("syllable_score_list", [])
         formatted_syllables = []
         
         for syllable_data in syllable_score_list:
+            syllable_extent = syllable_data.get("extent", [None, None])
             formatted_syllables.append({
                 "syllable": syllable_data.get("letters"),
-                "quality_score": syllable_data.get("quality_score")
+                "quality_score": syllable_data.get("quality_score"),
+                "start_time": syllable_extent[0] if len(syllable_extent) > 0 else None,
+                "end_time": syllable_extent[1] if len(syllable_extent) > 1 else None
             })
 
         formatted_words.append({
             "word": word,
             "quality_score": quality_score,
+            "start_time": word_extent[0] if len(word_extent) > 0 else None,
+            "end_time": word_extent[1] if len(word_extent) > 1 else None,
             "syllables": formatted_syllables
         })
 
